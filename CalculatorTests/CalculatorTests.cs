@@ -12,7 +12,7 @@ namespace CalculatorTests
         }
 
         [Test]
-        public void Test1()
+        public void CalculationVerificationTest()
         {
             // Arrange
             var sut = new Mock<ICalculation>();
@@ -22,6 +22,19 @@ namespace CalculatorTests
 
             // Assert
             Assert.IsTrue(sut.Object.Verifiable);
+        }
+
+        [Test]
+        public void CalculationEvaluationTest()
+        {
+            // Arrange
+            var sut = new Mock<ICalculation>();
+            sut.Setup(s => s.Evaluate()).Returns(50);
+
+            // Act
+
+            // Assert
+            Assert.AreEqual(50, sut.Object.Evaluate());
         }
     }
 }
