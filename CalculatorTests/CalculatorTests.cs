@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Calculator;
 using NUnit.Framework;
 using Moq;
@@ -67,5 +68,21 @@ namespace CalculatorTests
             Assert.AreEqual(0.0, sut.Y);
             Assert.AreEqual(0.0, sut.Z);
         }
+
+        [Test]
+        public void EmbeddedMethodCallTest()
+        {
+            // Arrange
+            var sut1 = new Mock<IRib>();
+            var sut2 = new Mock<IRib>();
+
+            // Act
+            var box = new Box(1, 1, 1, new Point3D(), new List<IRib>(){sut1.Object, sut2.Object, sut2.Object });
+
+            // Assert
+            sut1.Verify(s => s.Update(), Times.Exactly(1));
+            sut2.Verify(s => s.Update(), Times.Exactly(2));
+        }
+
     }
 }
