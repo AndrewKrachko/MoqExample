@@ -10,6 +10,7 @@ namespace Calculator
         private double _depth;
         private double _height;
         private List<Point3D> _vertices;
+        private List<IRib> _ribs;
 
         public Point3D Pivot { get; set; }
         public Point3D BoundingBoxMax { get; }
@@ -43,6 +44,8 @@ namespace Calculator
             }
         }
 
+        public List<IRib> Ribs { get; set; }
+
         public Box() : this(1, 1, 1)
         {
         }
@@ -53,9 +56,14 @@ namespace Calculator
 
         public Box(double width, double depth, double height, Point3D pivot)
         {
+        }
+
+        public Box(double width, double depth, double height, Point3D pivot, List<IRib> ribs)
+        {
             _width = width;
             _depth = depth;
             _height = height;
+            _ribs = ribs;
             Pivot = pivot;
             GenerateMeshVertices();
             UpdateVertices();
@@ -83,6 +91,11 @@ namespace Calculator
                 _vertices[i].X = Pivot.X - _depth / 2 * (1 - 2 * i % 2);
                 _vertices[i].Y = Pivot.Y - _width / 2 * (-1 + 2 * Math.Floor(i / 2.0) % 2);
                 _vertices[i].Z = Pivot.Z + _height * Math.Floor(i / 4.0);
+            }
+
+            foreach (var rib in _ribs)
+            {
+                rib.Update();
             }
         }
 
