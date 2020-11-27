@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Calculator
 {
-    class Box : IBox
+    public class Box : IBox
     {
         private double _width;
         private double _depth;
