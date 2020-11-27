@@ -53,5 +53,19 @@ namespace CalculatorTests
             // Assert
             Assert.AreEqual("Dear Sir, here is your answer - 12.", output);
         }
+
+        [Test]
+        public void EmbeddedConstructorCallTest()
+        {
+            // Arrange
+
+            // Act
+            var sut = new Point3D();
+
+            // Assert
+            Assert.AreEqual(0.0, sut.X);
+            Assert.AreEqual(0.0, sut.Y);
+            Assert.AreEqual(0.0, sut.Z);
+        }
     }
 }
